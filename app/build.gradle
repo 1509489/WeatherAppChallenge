@@ -56,6 +56,10 @@ dependencies {
     implementation 'com.google.dagger:dagger:2.17'
     kapt 'com.google.dagger:dagger-compiler:2.17'
 
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    kapt 'com.github.bumptech.glide:compiler:4.8.0'
+
     //Espresso idling resource
     implementation 'androidx.test.espresso:espresso-idling-resource:3.1.1'
 
