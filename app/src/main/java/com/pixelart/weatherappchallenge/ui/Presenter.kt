@@ -18,12 +18,23 @@ class Presenter(private val view: Contract.View, private val apiService: Network
         )
     }
 
+    override fun getForecast(latitude: Double, longitude: Double) {
+        compositeDisposable.add(
+            apiService.getForecast(latitude, longitude, APP_ID)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(view::showForecast, this::handleError)
+        )
+    }
+
     override fun onStop() {
         compositeDisposable.clear()
     }
 
     private fun handleError(throwable: Throwable){
-        if (throwable.message != null)
+        if (throwable.message != null){
             view.showError("Error: Unable to get weather info, pleas try again")
+            throwable.printStackTrace()
+        }
     }
 }
