@@ -6,12 +6,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class Presenter(private val view: Contract.View, private val apiService: NetworkService): Contract.Presenter {
+class Presenter(private val view: Contract.View, private val networkService: NetworkService): Contract.Presenter {
     private val compositeDisposable = CompositeDisposable()
 
     override fun getCurrentWeather(latitude: Double, longitude: Double) {
         compositeDisposable.add(
-            apiService.getCurrentWeather(latitude, longitude, APP_ID)
+            networkService.getCurrentWeather(latitude, longitude, APP_ID)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(view::showCurrentWeather, this::handleError)
@@ -20,7 +20,7 @@ class Presenter(private val view: Contract.View, private val apiService: Network
 
     override fun getForecast(latitude: Double, longitude: Double) {
         compositeDisposable.add(
-            apiService.getForecast(latitude, longitude, APP_ID)
+            networkService.getForecast(latitude, longitude, APP_ID)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(view::showForecast, this::handleError)
@@ -33,7 +33,7 @@ class Presenter(private val view: Contract.View, private val apiService: Network
 
     private fun handleError(throwable: Throwable){
         if (throwable.message != null){
-            view.showError("Error: Unable to get weather info, pleas try again")
+            view.showError("Error: Unable to get weather info, please try again")
             throwable.printStackTrace()
         }
     }
