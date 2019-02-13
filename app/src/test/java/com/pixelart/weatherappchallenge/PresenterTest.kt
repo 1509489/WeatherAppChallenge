@@ -1,6 +1,5 @@
 package com.pixelart.weatherappchallenge
 
-import com.pixelart.weatherappchallenge.common.APP_ID
 import com.pixelart.weatherappchallenge.model.*
 import com.pixelart.weatherappchallenge.network.NetworkService
 import com.pixelart.weatherappchallenge.ui.Contract
@@ -16,8 +15,6 @@ import org.junit.Test
 import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.runner.RunWith
-import org.mockito.ArgumentCaptor
-import org.mockito.Captor
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
@@ -33,8 +30,6 @@ class PresenterTest {
 
     @Mock private lateinit var view: Contract.View
     @Mock private lateinit var networkService: NetworkService
-
-    @Captor private lateinit var currentWeatherCaptor: ArgumentCaptor<CurrentWeatherResponse>
 
     companion object {
         @BeforeClass
