@@ -1,5 +1,6 @@
 package com.pixelart.weatherappchallenge.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.pixelart.weatherappchallenge.R
 import com.pixelart.weatherappchallenge.common.GlideApp
 import com.pixelart.weatherappchallenge.common.ICONURL
+import com.pixelart.weatherappchallenge.common.Utils
 import com.pixelart.weatherappchallenge.model.WeatherList
 import kotlinx.android.synthetic.main.recyclerview_layout.view.*
 
@@ -33,11 +35,12 @@ class ForecastAdapter : ListAdapter<WeatherList, ForecastAdapter.ViewHolder>(DIF
         private val tvWeatherDescription: TextView = view.tvWeatherDesc
         private val tvTemperature: TextView = view.tvTemp
 
+        @SuppressLint("SetTextI18n")
         fun initViews(weatherList: WeatherList, context: Context){
-            tvDateTime.text = weatherList.dt.toString()
+            tvDateTime.text = Utils.INSTANCE.timestampToDateTime(weatherList.dt.toLong())
 
             val temp = (weatherList.main.temp - 273.15).toInt()
-            tvTemperature.text = "$temp"
+            tvTemperature.text = "$temp°"
             var icon = ""
             for (weather in weatherList.weather) {
                 tvWeatherDescription.text = weather.description
